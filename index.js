@@ -12,6 +12,29 @@ app.use((req, res, next) => {
 
 app.use(load('Online users'))
 
+app.get('/users/report', (req, res) => {
+  res.send(`
+    User report complete: ${req.query.complete}
+    Year report: ${req.query.year}
+  `)
+})
+
+app.post('/body', (req, res) => {
+  let body = ''
+  req.on('data', function(data) {
+    body += data
+  })
+
+  req.on('end', function() {
+    res.json(JSON.parse(body))
+  })
+})
+
+app.get('/users/:id', (req, res) => {
+  res.send(`User ${req.params.id} selected.`)
+})
+
+
 app.use('/', (req, res, next) => {
   let response_key = '';
   let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
