@@ -5,7 +5,10 @@ const PORT = 3000
 const body_parser = require('body-parser')
 
 const load = require('./src/middlewares/load')
+const user_api = require('./src/api/user')
 
+app.post('/user', user_api.create)
+app.get('/user', user_api.show)
 
 app.use(body_parser.text())
 app.use(body_parser.json())
