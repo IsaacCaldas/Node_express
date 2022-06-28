@@ -2,14 +2,24 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 
+const load = require('./src/middlewares/load')
+
+
 app.use((req, res, next) => {
   console.log('Loading...')
   next()
 })
 
+app.use(load('Online users'))
+
 app.use('/', (req, res, next) => {
-  console.log('online_users response')
-  console.log('res_2sx2')
+  let response_key = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < 250; i++) {
+    response_key += characters.charAt(Math.floor(Math.random() * characters.length));
+  }       
+
+  console.log(`response key:${response_key}`)
   res.json({
     online_users: [
       { id: 0, name: 'Anonymous', admin: true },
