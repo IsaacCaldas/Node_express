@@ -2,8 +2,16 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 
+const body_parser = require('body-parser')
+
 const load = require('./src/middlewares/load')
 
+
+app.use(body_parser.text())
+app.use(body_parser.json())
+app.use(body_parser.urlencoded({
+  extended: true
+}))
 
 app.use((req, res, next) => {
   console.log('Loading...')
@@ -20,14 +28,18 @@ app.get('/users/report', (req, res) => {
 })
 
 app.post('/body', (req, res) => {
-  let body = ''
-  req.on('data', function(data) {
-    body += data
-  })
+  // let body = ''
+  // req.on('data', function(data) {
+  //   body += data
+  // })
 
-  req.on('end', function() {
-    res.json(JSON.parse(body))
-  })
+  // req.on('end', function() {
+  //   res.json(JSON.parse(body))
+  // })
+  
+  // WITH BODY PARSER
+  res.send(req.body)
+  // res.send(req.body.user)
 })
 
 app.get('/users/:id', (req, res) => {
