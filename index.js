@@ -6,6 +6,9 @@ const body_parser = require('body-parser')
 
 const load = require('./src/middlewares/load')
 const user_api = require('./src/api/user')
+const product_api = require('./src/api/product')
+product_api(app, 'PS5')
+// require('./src/api/product')(app, 'PS4') OR THIS
 
 app.post('/user', user_api.create)
 app.get('/user', user_api.show)
